@@ -23,6 +23,10 @@ export default class CommentBox extends React.Component {
   }
 
   handleCommentSubmit(comment) {
+    var comments = this.state.data;
+    comment.id = Date.now();
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
     fetch(this.props.url, {
       method: 'POST',
       body: JSON.stringify(comment),
@@ -33,6 +37,8 @@ export default class CommentBox extends React.Component {
       return res.json();
     }).then(data => {
       this.setState({data: data});
+    }, err => {
+      this.setState({data: comments});
     });
   }
 
