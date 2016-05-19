@@ -4,9 +4,16 @@ module.exports = {
     path: './',
     filename: 'index.js'
   },
+  devtool: 'source-map',
   devServer: {
     inline: true,
-    port: 3333
+    port: 3333,
+    inline: true,
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3000'
+      }
+    }
   },
   module: {
     loaders: [
